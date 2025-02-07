@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zostaniesz moją walentynką?</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
         body {
             font-family: "Sour Gummy", serif !important;
             margin: 0;
@@ -92,69 +94,83 @@
             display: none;
             width: clamp(180px, 60vw, 350px);
         }
+
+        #kc {
+            display: none;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Zostaniesz moją<br>walentynką Martyna?</h1>
-    <div class="buttons-container" id="buttonsContainer">
-        <div class="buttons">
-            <button class="btn" id="btn1">Tak</button>
-            <button class="btn" id="btn2">Nie</button>
+    <div class="container">
+        <h1>Zostaniesz moją<br>walentynką Martyna?</h1>
+        <div class="buttons-container" id="buttonsContainer">
+            <div class="buttons">
+                <button class="btn" id="btn1">Tak</button>
+                <button class="btn" id="btn2">Nie</button>
+
+            </div>
+            <img id="heartImage" src="hatch_11.png" alt="Serce">
         </div>
-        <img id="heartImage" src="hatch_11.png" alt="Serce">
+
+        <div>
+            <h2 id="kc">Kocham Cię</h2>
+            <img src="hatch_00.png" alt="" id="kulkus">
+
+        </div>
+
     </div>
 
-    <div>
-        <img src="hatch_00.png" alt="" id="kulkus">
-    </div>
+    <script>
+        const btn1 = document.getElementById("btn1");
+        const btn2 = document.getElementById("btn2");
+        const h1 = document.querySelector("h1");
+        const buttonsContainer = document.getElementById("buttonsContainer");
+        const heartImage = document.getElementById("heartImage");
+        const us = document.getElementById("kulkus");
+        const kc = document.getElementById("kc")
 
-</div>
+        let clickCount = 0;
+        let messages = ["Na pewno?", "Czemu nie?", "Proszę", "Nie rób mi tego", "Proszę zostań"];
 
-<script>
-    const btn1 = document.getElementById("btn1");
-    const btn2 = document.getElementById("btn2");
-    const h1 = document.querySelector("h1");
-    const buttonsContainer = document.getElementById("buttonsContainer");
-    const heartImage = document.getElementById("heartImage");
-    const us = document.getElementById("kulkus");
-
-    let clickCount = 0;
-    let messages = ["Na pewno?", "Czemu nie?", "Proszę", "Nie rób mi tego", "Proszę zostań"];
-
-    btn1.addEventListener("click", () => {
-        h1.textContent = "Taaaaak!";
-        h1.style.fontSize = '15vw';
-        buttonsContainer.style.display = "none"; // Ukrycie przycisków i obrazka
-        us.style.display = 'block';
-    });
-
-    btn2.addEventListener("click", () => {
-        clickCount++;
-
-        if (clickCount < messages.length) {
-            btn1.textContent = messages[clickCount - 1];
-            btn1.style.width = `${6 + clickCount * 3}em`;
-            btn1.style.height = `${6 + clickCount * 3}em`;
-            btn1.style.fontSize = `${1.5 + clickCount * 0.7}rem`;
-        } else {
-            let fullScreenBtn = document.createElement("button");
-            fullScreenBtn.textContent = "Proszę zostań";
-            fullScreenBtn.classList.add("full-screen");
-
-            document.body.appendChild(fullScreenBtn);
+        btn1.addEventListener("click", () => {
+            h1.textContent = "Taaaaak!";
+            h1.style.fontSize = '10vw';
             buttonsContainer.style.display = "none"; // Ukrycie przycisków i obrazka
+            us.style.display = 'block';
+            kc.style.display = 'block';
+            kc.style.fontSize = '4vw';
+        });
 
-            fullScreenBtn.addEventListener("click", () => {
-                h1.textContent = "Taaaaak!";
-                h1.style.fontSize = '15vw';
-                fullScreenBtn.style.display = "none";
-                us.style.display = 'block';
-            });
-        }
-    });
-</script>
+        btn2.addEventListener("click", () => {
+            clickCount++;
+
+            if (clickCount < messages.length) {
+                btn1.textContent = messages[clickCount - 1];
+                btn1.style.width = `${6 + clickCount * 3}em`;
+                btn1.style.height = `${6 + clickCount * 3}em`;
+                btn1.style.fontSize = `${1.5 + clickCount * 0.7}rem`;
+            } else {
+                let fullScreenBtn = document.createElement("button");
+                fullScreenBtn.textContent = "Proszę zostań";
+                fullScreenBtn.classList.add("full-screen");
+
+                document.body.appendChild(fullScreenBtn);
+                buttonsContainer.style.display = "none"; // Ukrycie przycisków i obrazka
+
+                fullScreenBtn.addEventListener("click", () => {
+                    h1.textContent = "Taaaaak!";
+                    h1.style.fontSize = '10vw';
+                    fullScreenBtn.style.display = "none";
+                    us.style.display = 'block';
+                    kc.style.display = 'block';
+                    kc.style.fontSize = '4vw';
+                });
+            }
+        });
+    </script>
 
 </body>
+
 </html>
