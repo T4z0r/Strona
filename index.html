@@ -1,48 +1,163 @@
 <!DOCTYPE html>
 <html lang="pl">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <head>
-    <title>Martyna</title>
-<style>
-body{
-    background-color: magenta;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zostaniesz moją walentynką?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+        body {
+            font-family: "Sour Gummy", serif !important;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 238, 255);
+            color: white;
+            overflow: hidden;
+            flex-direction: column;
+        }
 
-h1{
-    color: gold;
-    font-family:Arial, Helvetica, sans-serif;
-    text-align: center;
-}
+        .container {
+            text-align: center;
+        }
 
-div{
-margin: auto;
-  width: 100px;
-  border: 3px solid rgb(145, 10, 10);
-    position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-    
-}   
-</style>
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
 
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
 
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
 
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(47, 214, 47);
+            color: #fff;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 6em;
+            height: 6em;
+        }
 
+        #btn2 {
+            background-color: rgb(214, 47, 61);
+        }
 
-    
+        /* Pełnoekranowy przycisk */
+        .full-screen {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300vw;
+            height: 300vh;
+            font-size: 10vw;
+            transform: translate(-50%, -50%);
+            background-color: rgb(47, 214, 47);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        img {
+            display: block;
+            margin: auto;
+            width: 300px;
+            height: auto;
+        }
+
+        #kulkus{
+            display: none;
+        }
+    </style>
 </head>
-
-
-
 <body>
-<div>
-<h1>Kocham cie</h1>
+
+<div class="container">
+    <h1>Zostaniesz moją<br>walentynką Martyna?</h1>
+    <div class="buttons-container" id="buttonsContainer">
+        <div class="buttons">
+            <button class="btn" id="btn1">Tak</button>
+            <button class="btn" id="btn2">Nie</button>
+        </div>
+        <img id="heartImage" src="hatch_11.png" alt="Serce">
+    </div>
+
+    <div>
+        <img src="hatch_00.png" alt="" id="kulkus">
+    </div>
+
 </div>
 
+<script>
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const h1 = document.querySelector("h1");
+    const buttonsContainer = document.getElementById("buttonsContainer");
+    const heartImage = document.getElementById("heartImage");
+    const us = document.getElementById("kulkus")
 
+    let clickCount = 0;
+    let messages = ["Na pewno?", "Czemu nie?", "Proszę", "Nie rób mi tego", "Proszę zostań"];
 
+    btn1.addEventListener("click", () => {
+        h1.textContent = "Taaaaak!";
+        h1.style.fontSize = '15em';
+        buttonsContainer.style.display = "none"; // Ukrycie przycisków i obrazka
+        us.style.display='block';
+    });
+
+    btn2.addEventListener("click", () => {
+        clickCount++;
+
+        if (clickCount < messages.length) {
+            btn1.textContent = messages[clickCount - 1];
+            btn1.style.width = `${6 + clickCount * 3}em`;
+            btn1.style.height = `${6 + clickCount * 3}em`;
+            btn1.style.fontSize = `${1.5 + clickCount * 0.7}rem`;
+        } else {
+            let fullScreenBtn = document.createElement("button");
+            fullScreenBtn.textContent = "Proszę zostań";
+            fullScreenBtn.classList.add("full-screen");
+
+            document.body.appendChild(fullScreenBtn);
+            buttonsContainer.style.display = "none"; // Ukrycie przycisków i obrazka
+
+            fullScreenBtn.addEventListener("click", () => {
+                h1.textContent = "Taaaaak!";
+                h1.style.fontSize = '15em';
+                fullScreenBtn.style.display = "none";
+                us.style.display='block';
+            });
+        }
+
+        // Przesunięcie btn2 tak, aby pozostał blisko btn1
+        btn2.style.position = "relative";
+        btn2.style.left = `${Math.min((btn1.offsetWidth - 96) / 4, 30)}px`; 
+    });
+</script>
 
 </body>
+</html>
